@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import AppContext from '../AppContext';
+import AppContext, { contextTypes } from '../AppContext';
 
 export default function LoginForm(): ReactElement {
 
@@ -18,15 +18,17 @@ export default function LoginForm(): ReactElement {
   const emailField: React.MutableRefObject<any> = useRef();
   const passwordField: React.MutableRefObject<any> = useRef();
 
-  const { logInUser } = React.useContext(AppContext);
-  
+  //const { logInUser } = React.useContext<contextTypes>(AppContext as any);
+  const logInUser = React.useContext(AppContext as any);
+  console.log("logInUser: ", logInUser);
+
   const handleLogin = () => {
-       const email: string = emailField.current.value;
+       /* const email: string = emailField.current.value;
        const password: string = passwordField.current.value;
        console.log ('email', email);
        console.log ('password', password);
 
-       logInUser(email, password);
+       logInUser(email, password); */
 
   };
 

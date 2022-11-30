@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -8,12 +8,17 @@ import {
 } from "firebase/auth";
 import { auth } from "./firebase";
 
-interface Props {
+/* interface Props {
   children:
     | React.ReactElement<any, string | React.JSXElementConstructor<any>>
     | React.ReactElement<any, string>
-    | React.ReactPortal;
-}
+    | React.ReactPortal |
+    React.ReactNode
+} */
+
+type Props = {
+  children?: React.ReactNode
+};
 
 interface userTypes {
   displayName: string | null;
@@ -27,7 +32,7 @@ interface registrationTypes {
   password: string;
 }
 
-interface contextTypes {
+export interface contextTypes {
   loading: boolean;
   currentUser: userTypes | null;
   logInUser(email: string, password: string): Promise<void>;
@@ -45,12 +50,13 @@ const contextDefaultVal: contextTypes = {
   handleAuthChange: () => {},
 };
 
+//export const AppContext = React.createContext<contextTypes | null>(null);
 export const AppContext = React.createContext<contextTypes>(contextDefaultVal);
 
 // export const AppContext = React.createContext(contextDefaultVal);
 
-export default function AppContextProvider({ children }: Props): ReactElement { 
-// export default function AppContextProvider({ children }: any): any { 
+//export default function AppContextProvider({ children }: Props): ReactElement { 
+const AppContextProvider : React.FC<Props> = ({children}) => {
   const [currentUser, setCurrentUser] = React.useState<userTypes | null>(null);
   const [loading, setLoading] = React.useState(false);
 
@@ -104,7 +110,14 @@ export default function AppContextProvider({ children }: Props): ReactElement {
     });
   };
 
-  return (
+  return <AppContext.Provider value={{ loading,
+    currentUser,
+    logInUser,
+    registerUser,
+    handleAuthChange,
+    signOutUser, }}>{children}</AppContext.Provider>;
+
+  /* return (
     <AppContext.Provider
       value={{
         loading,
@@ -117,5 +130,7 @@ export default function AppContextProvider({ children }: Props): ReactElement {
     >
       {children}
     </AppContext.Provider>
-  );
+  ); */
 }
+
+export default AppContextProvider
