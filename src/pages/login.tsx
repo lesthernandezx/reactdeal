@@ -1,16 +1,14 @@
-import LoginForm from "../components/login-form"
-import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import LoginForm from '../components/login-form'
+import * as React from 'react'
+import CssBaseline from '@mui/material/CssBaseline'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-const Login: React.FC =(props) =>{
+const Login: React.FC = (props) => {
+  const theme = createTheme()
 
-    const theme = createTheme();
-   
-    
-      return (
+  return (
         <ThemeProvider theme={theme}>
           <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -19,14 +17,14 @@ const Login: React.FC =(props) =>{
                 marginTop: 8,
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
+                alignItems: 'center'
               }}
             >
              <LoginForm></LoginForm>
             </Box>
           </Container>
         </ThemeProvider>
-      );
+  )
 }
 
 export default Login

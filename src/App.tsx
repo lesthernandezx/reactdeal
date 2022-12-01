@@ -1,11 +1,18 @@
-import './App.css';
-import Login from './pages/login';
+import './App.css'
+import { QueryClientProvider, QueryClient } from 'react-query'
+import Login from './pages/login'
+import { AuthProvider } from './Authprovider'
+import React from 'react'
 
-function App() {
+const queryClient = new QueryClient()
+
+function App (): JSX.Element {
   return (
-    <div><Login></Login>
-    </div>
-  );
+    <div className="App">
+      <QueryClientProvider client={queryClient}>
+      <AuthProvider><Login/></AuthProvider>
+      </QueryClientProvider>
+      </div>)
 }
 
-export default App;
+export default App

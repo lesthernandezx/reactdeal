@@ -1,45 +1,46 @@
-import React, { Context, ReactElement, useRef } from 'react'
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import AppContext, { contextTypes } from '../AppContext';
+import React, { ReactElement, useRef } from 'react'
+import Button from '@mui/material/Button'
+import Avatar from '@mui/material/Avatar'
+import TextField from '@mui/material/TextField'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
+import Link from '@mui/material/Link'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import Typography from '@mui/material/Typography'
+import { useAuth } from '../Authprovider'
 
-export default function LoginForm(): ReactElement {
+export default function LoginForm (): ReactElement {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const emailField: React.MutableRefObject<any> = useRef()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const passwordField: React.MutableRefObject<any> = useRef()
 
-  
-  const emailField: React.MutableRefObject<any> = useRef();
-  const passwordField: React.MutableRefObject<any> = useRef();
+  const { signIn } = useAuth()
 
-  //const { logInUser } = React.useContext<contextTypes>(AppContext as any);
-  const logInUser = React.useContext(AppContext as any);
-  console.log("logInUser: ", logInUser);
+  const handleLogin = async (): Promise<void> => {
+    const email: string = emailField.current.value
+    const password: string = passwordField.current.value
+    console.log('email', email)
+    console.log('password', password)
 
-  const handleLogin = () => {
-       /* const email: string = emailField.current.value;
-       const password: string = passwordField.current.value;
-       console.log ('email', email);
-       console.log ('password', password);
+    await signIn(email, password)
+    try {
+      console.log('🚀 ~ signup ok')
+    } catch (error) {
+      console.log('🚀 ~ signup error', error)
+    }
+  }
 
-       logInUser(email, password); */
-
-  };
-
-    return <div>
+  return <div>
     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
-              <Box component="form" onSubmit={ (e)=> {e.preventDefault()}} noValidate sx={{ mt: 1 }} >
+              <Box component="form" onSubmit={ (e) => { e.preventDefault() }} noValidate sx={{ mt: 1 }} >
                 <TextField
                   margin="normal"
                   required
@@ -61,7 +62,7 @@ export default function LoginForm(): ReactElement {
                   id="password"
                   autoComplete="current-password"
                   inputRef={passwordField}
-                  
+
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
@@ -72,6 +73,7 @@ export default function LoginForm(): ReactElement {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
                   onClick={handleLogin}
                 >
                   Sign In
@@ -91,4 +93,3 @@ export default function LoginForm(): ReactElement {
               </Box>
   </div>
 }
-
