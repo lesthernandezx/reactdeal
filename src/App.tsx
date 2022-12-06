@@ -10,7 +10,8 @@ function App (): JSX.Element {
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
-      <AuthProvider><Login/></AuthProvider>
+      <AuthProvider><Login/>
+      </AuthProvider>
       </QueryClientProvider>
       </div>)
 }

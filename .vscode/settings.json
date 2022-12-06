@@ -4,5 +4,8 @@
     "eslint.alwaysShowStatus": true,
     "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-    }
+    },
+    "prettier.prettierPath": "/Users/geraldreyes/Documents/reactdeal/.prettierrc",
+    "eslint.validate":["javascript","typescript"],
+    "javascript.validate.enable": true
 }

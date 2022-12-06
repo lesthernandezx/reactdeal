@@ -6,7 +6,8 @@
     "extends": [
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
-        "standard-with-typescript"
+        "standard-with-typescript",
+        "prettier"
     ],
     "overrides": [
     ],
@@ -38,13 +39,20 @@
              "allowExpressions": true
             }
         ],
-        "max-len": ["warn", { "code": 80 }],
+        "max-len": ["warn", { "code": 160 }],
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "import/prefer-default-export": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "quotes": [
+            "error",
+            "single"
+        ]
     },
     "settings": {
+        "react": {
+            "version": "detect"
+          },
         "import/resolver": {
         "typescript": {}
         }
